@@ -106,7 +106,8 @@ export default function App() {
         <WorkspacePanel>
           <WorkspaceView mode="design">
             <Sandbox
-              onMessage={(e) => {
+              bundlerURL="https://local.bincooo.com:8443"
+              onMessage={(e: any) => {
                 if (e.type === 'done') {
                   const sandboxWindow: any = sandboxQuery.window;
                   if (sandboxWindow.TangoMail) {

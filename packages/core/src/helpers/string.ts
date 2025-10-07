@@ -28,6 +28,10 @@ export function inferFileType(filename: string): FileType {
     return FileType.JsViewFile;
   }
 
+  if (/\/pages\/.+\.tsx?$/.test(filename)) {
+    return FileType.JsViewFile;
+  }
+
   // 所有 pages 下的 js 文件均认为是有效的 viewModule
   if (/\/pages\/.+\.schema\.json?$/.test(filename)) {
     return FileType.JsonViewFile;

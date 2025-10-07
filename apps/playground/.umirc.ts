@@ -40,8 +40,8 @@ export default defineConfig({
     'https://unpkg.com/prettier@2.6.0/parser-babel.js',
   ],
   https: {
-    key: path.resolve(__dirname, 'local.netease.com-key.pem'),
-    cert: path.resolve(__dirname, 'local.netease.com.pem'),
+    key: path.resolve(__dirname, 'local.bincooo.com-key.pem'),
+    cert: path.resolve(__dirname, 'local.bincooo.com.pem'),
     http2: false,
   },
   chainWebpack: (config: any) => {

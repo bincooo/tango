@@ -17,6 +17,7 @@ const babelParserConfig: ParserOptions = {
   sourceType: 'module',
   plugins: [
     'jsx',
+    'typescript',
     'doExpressions',
     'objectRestSpread',
     'decorators-legacy',

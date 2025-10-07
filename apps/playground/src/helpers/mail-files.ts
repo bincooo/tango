@@ -173,7 +173,7 @@ export const mailFiles = [
   { filename: '/package.json', code: JSON.stringify(packageJson) },
   { filename: '/tango.config.json', code: JSON.stringify(tangoConfigJson) },
   { filename: '/README.md', code: '# readme' },
-  { filename: '/src/index.js', code: entryCode },
-  { filename: '/src/pages/mail.js', code: viewHomeCode },
-  { filename: '/src/routes.js', code: routesCode },
+  { filename: '/src/index.ts', code: entryCode },
+  { filename: '/src/pages/mail.tsx', code: viewHomeCode },
+  { filename: '/src/routes.ts', code: routesCode },
 ];

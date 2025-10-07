@@ -3,6 +3,8 @@ import { Box } from 'coral-system';
 import { MultiEditor, MultiEditorProps } from '@music163/tango-ui';
 import { observer, useDesigner, useWorkspace } from '@music163/tango-context';
 
+import { monacoInitialize, createTypes } from './monaco';
+
 const ideConfig = {
   // disableFileOps: {
   //   add: true,
@@ -17,6 +19,7 @@ const ideConfig = {
   disableEslint: true,
   saveWhenBlur: true,
   // disableSetting: true,
+  useFileMenu: true,
 };
 
 export type CodeEditorProps = Partial<MultiEditorProps>;
@@ -36,6 +39,31 @@ export const CodeEditor = observer((props: CodeEditorProps) => {
 
   useEffect(() => {
     editorRef.current?.refresh(files, activeFile, loc);
+
+    monacoInitialize((monaco) => {
+      // ✅ 启用 TSX 支持
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
+        target: monaco.languages.typescript.ScriptTarget.ESNext,
+        allowNonTsExtensions: true,
+        allowUnusedLabels: true,
+        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        module: monaco.languages.typescript.ModuleKind.ESNext,
+      });
+
+      // ✅ 忽略类型异常
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+      });
+
+      // ✅ 注册类型提示
+      // const ata = createTypes((code, path) => {
+      //   monaco.languages.typescript.typescriptDefaults.addExtraLib(code, `file://${path}`);
+      // });
+      // if (!!editorRef.current) {
+      //   ata(editorRef.current.getValue(activeFile));
+      // }
+    });
   }, [files, activeFile, loc]);
 
   const fileSave = useCallback(
