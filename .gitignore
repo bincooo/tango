@@ -9,4 +9,3 @@ coverage/
 .umi-production/
 .log
 .eslintcache
-*.pem

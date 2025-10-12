@@ -2,8 +2,7 @@ const packageJson = {
   name: 'demo',
   private: true,
   dependencies: {
-    '@music163/tango-mail': '0.2.4',
-    '@music163/tango-boot': '0.2.5',
+    '@music163/tango-boot': '0.3.5',
     react: '17.0.2',
     'react-dom': '17.0.2',
     'prop-types': '15.7.2',
@@ -86,43 +85,12 @@ runApp({
 
 const viewHomeCode = `
 import React from 'react';
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Hr,
-  Html,
-  Preview,
-  Section,
-  Text,
-} from '@music163/tango-mail';
+
 
 const WelcomeEmail = () => (
-  <Html>
-    <Head />
-    <Preview>The sales intelligence platform that helps you uncover qualified leads.</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Text style={paragraph}>Hi wells,</Text>
-        <Text style={paragraph}>
-          Welcome to Koala, the sales intelligence platform that helps you uncover qualified leads
-          and close deals faster.
-        </Text>
-        <Section style={btnContainer}>
-          <Button style={button} href="https://getkoala.com">
-            Get started
-          </Button>
-        </Section>
-        <Text style={paragraph}>
-          Best,
-          The Koala team
-        </Text>
-        <Hr style={hr} />
-        <Text style={footer}>470 Noor Ave STE B #1148, South San Francisco, CA 94080</Text>
-      </Container>
-    </Body>
-  </Html>
+  <div>
+    1234
+  </div>
 );
 
 const main = {

@@ -192,7 +192,7 @@ export default function App() {
           </WorkspaceView>
           <WorkspaceView mode="design">
             <Sandbox
-              bundlerURL="https://local.bincooo.com:8443"
+              bundlerURL="https://sandbox.bincooo.com"
               onMessage={(e: any) => {
                 if (e.type === 'done') {
                   const sandboxWindow: any = sandboxQuery.window;

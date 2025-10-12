@@ -61,6 +61,10 @@ export function inferFileType(filename: string): FileType {
     return FileType.JsFile;
   }
 
+  if (/\.tsx?$/.test(filename)) {
+    return FileType.JsFile;
+  }
+
   if (/\.json$/.test(filename)) {
     return FileType.JsonFile;
   }
@@ -133,7 +137,7 @@ const prettierPlugins = (window as any).prettierPlugins;
  * @param parser prettier parser, see https://prettier.io/docs/en/options.html#parser
  * @returns the formatted code
  */
-export function formatCode(code: string, parser = 'babel') {
+export function formatCode(code: string, parser = 'babel' /* 'babel-ts' */) {
   if (prettier && prettierPlugins) {
     return prettier.format(code, { parser, plugins: prettierPlugins });
   }

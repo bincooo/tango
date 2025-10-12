@@ -23,16 +23,12 @@ import {
   createFromIconfontCN,
 } from '@ant-design/icons';
 import { mailFiles } from '@/helpers/mail-files';
+import { readFiles } from '@/helpers/fetch-files';
 
 // 1. 实例化工作区
-const workspace = new Workspace({
+let workspace = new Workspace({
   entry: '/src/index.js',
   files: mailFiles,
-});
-
-// 2. 引擎初始化
-const engine = createEngine({
-  workspace,
 });
 
 // @ts-ignore
@@ -48,12 +44,39 @@ createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_2891794_151xsllxqd7.js',
 });
 
+let inited = false;
+
 /**
  * 5. 平台初始化，访问 https://local.netease.com:6006/
  */
 export default function App() {
   const [menuLoading, setMenuLoading] = useState(true);
   const [menuData, setMenuData] = useState(false);
+
+  // 2. 引擎初始化
+  const [engine, setEngine] = useState(
+    createEngine({
+      workspace,
+    }),
+  );
+
+  if (!inited) {
+    readFiles().then((files) => {
+      workspace = new Workspace({
+        entry: '/src/index.js',
+        files,
+      });
+
+      setEngine(
+        createEngine({
+          workspace,
+        }),
+      );
+    });
+
+    inited = true;
+  }
+
   return (
     <Designer
       theme={themeLight}
@@ -106,7 +129,7 @@ export default function App() {
         <WorkspacePanel>
           <WorkspaceView mode="design">
             <Sandbox
-              bundlerURL="https://local.bincooo.com:8443"
+              bundlerURL="https://sandbox.bincooo.com"
               onMessage={(e: any) => {
                 if (e.type === 'done') {
                   const sandboxWindow: any = sandboxQuery.window;
