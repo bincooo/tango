@@ -44,7 +44,7 @@ createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_2891794_151xsllxqd7.js',
 });
 
-let inited = false;
+let inited = true;
 
 /**
  * 5. 平台初始化，访问 https://local.netease.com:6006/

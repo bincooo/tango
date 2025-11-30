@@ -13926,7 +13926,7 @@ monaco-editor@^0.38.0:
 
 monaco-jsx-syntax-highlight@1.2.2:
   version "1.2.2"
-  resolved "https://registry.npmmirror.com/monaco-jsx-syntax-highlight/-/monaco-jsx-syntax-highlight-1.2.2.tgz#95132f6c638c608eaa7de1b26ed0cd13879bdaaa"
+  resolved "https://registry.npmmirror.com/monaco-jsx-syntax-highlight/-/monaco-jsx-syntax-highlight-1.2.2.tgz"
   integrity sha512-V1JkspFJKIaRX5C2D3UuWjIz2xgWI+7slf+gMFgz8yIr0LSTl3AhD8Gk/7gvbMqp6pKOynIhWJEaluwwUtLz7w==
 
 monaco-textmate@^3.0.1:
@@ -13985,9 +13985,9 @@ mute-stream@^1.0.0:
   integrity sha512-avsJQhyd+680gKXyG/sQc0nXaC6rBkPOfyHYcFb9+hdkqQkR9bdnkJ0AMZhke0oesPqIO+mFFJ+IdBc7mst4IA==
 
 nan@^2.12.1:
-  version "2.23.0"
-  resolved "https://registry.npmmirror.com/nan/-/nan-2.23.0.tgz#24aa4ddffcc37613a2d2935b97683c1ec96093c6"
-  integrity sha512-1UxuyYGdoQHcGg87Lkqm3FzefucTa0NAiOcuRsDmysep3c1LVCRK2krrUDafMWtjSG04htvAmvg96+SDknOmgQ==
+  version "2.23.1"
+  resolved "https://registry.npmmirror.com/nan/-/nan-2.23.1.tgz#6f86a31dd87e3d1eb77512bf4b9e14c8aded3975"
+  integrity sha512-r7bBUGKzlqk8oPBDYxt6Z0aEdF1G1rwlMcLk8LCOMbOzf0mG+JUfUzG4fIMWwHWP0iyaLWEQZJmtB7nOHEm/qw==
 
 nanoid@^3.3.1, nanoid@^3.3.7:
   version "3.3.7"
@@ -15497,12 +15497,12 @@ postcss-modules-local-by-default@^3.0.2:
     postcss-value-parser "^4.1.0"
 
 postcss-modules-local-by-default@^4.0.0:
-  version "4.0.5"
-  resolved "https://registry.npmmirror.com/postcss-modules-local-by-default/-/postcss-modules-local-by-default-4.0.5.tgz"
-  integrity sha512-6MieY7sIfTK0hYfafw1OMEG+2bg8Q1ocHCpoWLqOKj3JXlKu4G7btkmM/B7lFubYkYWmRSPLZi5chid63ZaZYw==
+  version "4.2.0"
+  resolved "https://registry.npmmirror.com/postcss-modules-local-by-default/-/postcss-modules-local-by-default-4.2.0.tgz"
+  integrity sha512-5kcJm/zk+GJDSfw+V/42fJ5fhjL5YbFDl8nVdXkJPLLW+Vf9mTD5Xe0wqIaDnLuL2U6cDNpTr+UQ+v2HWIBhzw==
   dependencies:
     icss-utils "^5.0.0"
-    postcss-selector-parser "^6.0.2"
+    postcss-selector-parser "^7.0.0"
     postcss-value-parser "^4.1.0"
 
 postcss-modules-scope@^2.2.0:
@@ -15514,11 +15514,11 @@ postcss-modules-scope@^2.2.0:
     postcss-selector-parser "^6.0.0"
 
 postcss-modules-scope@^3.0.0:
-  version "3.2.0"
-  resolved "https://registry.npmmirror.com/postcss-modules-scope/-/postcss-modules-scope-3.2.0.tgz"
-  integrity sha512-oq+g1ssrsZOsx9M96c5w8laRmvEu9C3adDSjI8oTcbfkrTE8hx/zfyobUoWIxaKPO8bt6S62kxpw5GqypEw1QQ==
+  version "3.2.1"
+  resolved "https://registry.npmmirror.com/postcss-modules-scope/-/postcss-modules-scope-3.2.1.tgz"
+  integrity sha512-m9jZstCVaqGjTAuny8MdgE88scJnCiQSlSrOWcTQgM2t32UBe+MUmFSO5t7VMSfAf/FJKImAxBav8ooCHJXCJA==
   dependencies:
-    postcss-selector-parser "^6.0.4"
+    postcss-selector-parser "^7.0.0"
 
 postcss-modules-values@^3.0.0:
   version "3.0.0"
@@ -15646,6 +15646,14 @@ postcss-selector-parser@^6.0.0, postcss-selector-parser@^6.0.10, postcss-selecto
   version "6.1.2"
   resolved "https://registry.npmmirror.com/postcss-selector-parser/-/postcss-selector-parser-6.1.2.tgz"
   integrity sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==
+  dependencies:
+    cssesc "^3.0.0"
+    util-deprecate "^1.0.2"
+
+postcss-selector-parser@^7.0.0:
+  version "7.1.1"
+  resolved "https://registry.npmmirror.com/postcss-selector-parser/-/postcss-selector-parser-7.1.1.tgz"
+  integrity sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==
   dependencies:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"

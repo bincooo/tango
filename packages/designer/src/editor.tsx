@@ -3,7 +3,9 @@ import { Box } from 'coral-system';
 import { MultiEditor, MultiEditorProps } from '@music163/tango-ui';
 import { observer, useDesigner, useWorkspace } from '@music163/tango-context';
 
-import { monacoInitialize, createTypes } from './monaco';
+import { monacoSetting, addTypescriptExtra } from './monaco';
+import './editor.scss';
+import { MonacoJsxSyntaxHighlight, getWorker } from 'monaco-jsx-syntax-highlight';
 
 const ideConfig = {
   // disableFileOps: {
@@ -40,7 +42,7 @@ export const CodeEditor = observer((props: CodeEditorProps) => {
   useEffect(() => {
     editorRef.current?.refresh(files, activeFile, loc);
 
-    monacoInitialize((monaco) => {
+    monacoSetting((monaco, editor) => {
       // ✅ 启用 TSX 支持
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
@@ -51,13 +53,31 @@ export const CodeEditor = observer((props: CodeEditorProps) => {
         module: monaco.languages.typescript.ModuleKind.ESNext,
       });
 
+      // ✅ TSX node 高亮
+      const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight(getWorker(), monaco);
+
+      editor.getEditors().forEach((ed) => {
+        const { highlighter, dispose } = monacoJsxSyntaxHighlight.highlighterBuilder(
+          {
+            editor: ed,
+          },
+          {
+            jsxTagCycle: 6,
+          },
+        );
+        highlighter();
+        ed.onDidChangeModelContent(() => {
+          highlighter();
+        });
+      });
+
       // ✅ 忽略类型异常
       monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSemanticValidation: true,
       });
 
       // ✅ 注册类型提示
-      // const ata = createTypes((code, path) => {
+      // const ata = addTypescriptExtra((code, path) => {
       //   monaco.languages.typescript.typescriptDefaults.addExtraLib(code, `file://${path}`);
       // });
       // if (!!editorRef.current) {

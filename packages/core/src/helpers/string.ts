@@ -137,7 +137,7 @@ const prettierPlugins = (window as any).prettierPlugins;
  * @param parser prettier parser, see https://prettier.io/docs/en/options.html#parser
  * @returns the formatted code
  */
-export function formatCode(code: string, parser = 'babel' /* 'babel-ts' */) {
+export function formatCode(code: string, parser = 'babel-ts') {
   if (prettier && prettierPlugins) {
     return prettier.format(code, { parser, plugins: prettierPlugins });
   }

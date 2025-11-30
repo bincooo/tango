@@ -1,0 +1,13 @@
+$jsx-tag-color: #953800;
+$jsx-tag-bracket-color: $jsx-tag-color;
+
+.monaco-editor {
+
+  .jsx-tag-angle-bracket {
+    color: $jsx-tag-bracket-color;
+  }
+  .jsx-tag-name {
+    color: $jsx-tag-color;
+  }
+
+}

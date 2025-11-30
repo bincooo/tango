@@ -1,27 +1,25 @@
-import type * as monacoTypes from 'monaco-editor';
+import type * as T from 'monaco-editor';
 import { setupTypeAcquisition } from '@typescript/ata';
 import typescript from 'typescript';
 
 declare type AddExtraLibs = (code: string, path: string) => void;
 
-function globalMonacoEditor(): typeof monacoTypes {
+function monacoComponment(): typeof T {
   return (window as any).monaco;
 }
 
-export function monacoInitialize(callback: (monaco: typeof monacoTypes) => void) {
-  const monaco: typeof monacoTypes = globalMonacoEditor();
-  if (monaco) callback(monaco);
+export function monacoSetting(callback: (monaco: typeof T, editor: typeof T.editor) => void) {
+  const monaco: typeof T = monacoComponment();
+  if (monaco) callback(monaco, monaco.editor);
 }
 
-export function createTypes(addExtraLibs: AddExtraLibs) {
+export function addTypescriptExtra(addExtraLibs: AddExtraLibs) {
   return setupTypeAcquisition({
     projectName: 'Babel Plugin Playground',
     typescript,
     logger: console,
     delegate: {
-      receivedFile(code, path) {
-        addExtraLibs(code, path);
-      },
+      receivedFile: addExtraLibs,
     },
   });
 }
