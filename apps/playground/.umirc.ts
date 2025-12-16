@@ -10,6 +10,8 @@ export default defineConfig({
     { path: '/mail', component: 'mail' },
     { path: '/docs', component: 'docs' },
   ],
+  base: '/designer/',
+  publicPath: '/designer/',
   npmClient: 'yarn',
   mfsu: false,
   codeSplitting: false,

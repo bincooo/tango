@@ -43,6 +43,11 @@ export const CodeEditor = observer((props: CodeEditorProps) => {
     editorRef.current?.refresh(files, activeFile, loc);
 
     monacoSetting((monaco, editor) => {
+      if ((window as any).__monaco_lite__init__) {
+        return;
+      }
+      (window as any).__monaco_lite__init__ = true;
+
       // ✅ 启用 TSX 支持
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         jsx: monaco.languages.typescript.JsxEmit.ReactJSX,

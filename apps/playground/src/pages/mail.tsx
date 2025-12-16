@@ -16,6 +16,7 @@ import {
 } from '@music163/tango-designer';
 import { createEngine, Workspace } from '@music163/tango-core';
 import { Logo, ProjectDetail, bootHelperVariables } from '@/helpers';
+import prototypes from '../helpers/prototypes';
 import {
   AppstoreAddOutlined,
   BuildOutlined,
@@ -23,12 +24,13 @@ import {
   createFromIconfontCN,
 } from '@ant-design/icons';
 import { mailFiles } from '@/helpers/mail-files';
-import { readFiles } from '@/helpers/fetch-files';
+import { readFiles, saveFile } from '@/helpers/fetch-files';
 
 // 1. 实例化工作区
 let workspace = new Workspace({
   entry: '/src/index.js',
   files: mailFiles,
+  prototypes,
 });
 
 // @ts-ignore
@@ -44,7 +46,7 @@ createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/c/font_2891794_151xsllxqd7.js',
 });
 
-let inited = true;
+let inited = false;
 
 /**
  * 5. 平台初始化，访问 https://local.netease.com:6006/
@@ -61,10 +63,12 @@ export default function App() {
   );
 
   if (!inited) {
+    setMenuLoading(true);
     readFiles().then((files) => {
       workspace = new Workspace({
-        entry: '/src/index.js',
+        entry: '/src/index.tsx',
         files,
+        prototypes,
       });
 
       setEngine(
@@ -72,10 +76,16 @@ export default function App() {
           workspace,
         }),
       );
+      setMenuLoading(false);
     });
 
     inited = true;
   }
+
+  const publishFile = () => {
+    const file = workspace.getFile(workspace.activeFile);
+    saveFile(file.filename, file.code);
+  };
 
   return (
     <Designer
@@ -100,7 +110,9 @@ export default function App() {
               <Toolbar.Separator />
               <Toolbar.Item placement="right">
                 <Space>
-                  <Button type="primary">发布</Button>
+                  <Button type="primary" onClick={publishFile}>
+                    发布
+                  </Button>
                 </Space>
               </Toolbar.Item>
             </Toolbar>
@@ -129,7 +141,7 @@ export default function App() {
         <WorkspacePanel>
           <WorkspaceView mode="design">
             <Sandbox
-              bundlerURL="https://sandbox.bincooo.com"
+              bundlerURL="https://local.bincooo.com"
               onMessage={(e: any) => {
                 if (e.type === 'done') {
                   const sandboxWindow: any = sandboxQuery.window;
@@ -143,6 +155,7 @@ export default function App() {
                     }
                   }
                   setMenuLoading(false);
+                  publishFile();
                 }
               }}
               navigatorExtra={<Button size="small">hello world</Button>}
