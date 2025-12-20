@@ -247,6 +247,9 @@ export class JsViewFile extends AbstractJsFile implements IViewFile {
    * @returns
    */
   addImportSpecifiers(source: string, newSpecifiers: IImportSpecifierData[]) {
+    if (!source) {
+      return this;
+    }
     const existSpecifiers = this.importList[source];
     if (existSpecifiers) {
       const insertedSpecifiers = newSpecifiers.filter((item) => {
