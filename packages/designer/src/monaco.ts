@@ -8,9 +8,15 @@ function monacoComponment(): typeof T {
   return (window as any).monaco;
 }
 
-export function monacoSetting(callback: (monaco: typeof T, editor: typeof T.editor) => void) {
-  const monaco: typeof T = monacoComponment();
-  if (monaco) callback(monaco, monaco.editor);
+export function initMonacoLite(
+  cb: (monaco: typeof T & { __monaco_lite__init__?: boolean }, editor: typeof T.editor) => void,
+) {
+  const monaco: typeof T & { __monaco_lite__init__?: boolean } = monacoComponment();
+  if (!monaco || monaco.__monaco_lite__init__ || monaco.editor.getEditors().length == 0) {
+    return;
+  }
+  monaco.__monaco_lite__init__ = true;
+  cb(monaco, monaco.editor);
 }
 
 export function addTypescriptExtra(addExtraLibs: AddExtraLibs) {

@@ -2,7 +2,7 @@ const packageJson = {
   name: 'demo',
   private: true,
   dependencies: {
-    '@music163/antd': '0.2.5',
+    // '@music163/antd': '0.2.5',
     '@music163/tango-boot': '0.3.5',
     react: '17.0.2',
     'react-dom': '17.0.2',
@@ -54,21 +54,22 @@ const tangoConfigJson = {
       resources: ['https://unpkg.com/@music163/tango-boot@{{version}}/dist/boot.js'],
       // resources: ['http://localhost:9001/boot.js'],
     },
-    '@music163/antd': {
-      description: '云音乐低代码中后台应用基础物料',
-      version: '0.2.6',
-      library: 'TangoAntd',
-      type: 'baseDependency',
-      resources: [
-        'https://unpkg.com/@music163/antd@{{version}}/dist/index.js',
-        // 'http://localhost:9002/designer.js',
-        'https://unpkg.com/antd@4.24.13/dist/antd.css',
-      ],
-      designerResources: [
-        'https://unpkg.com/@music163/antd@{{version}}/dist/designer.js',
-        'https://unpkg.com/antd@4.24.13/dist/antd.css',
-      ],
-    },
+    // '@music163/antd': {
+    //   description: '云音乐低代码中后台应用基础物料',
+    //   version: '0.2.6',
+    //   library: 'TangoAntd',
+    //   type: 'baseDependency',
+    //   resources: [
+    //     // 'https://unpkg.com/@music163/antd@{{version}}/dist/index.js',
+    //     'http://localhost:9003/designer.js',
+    //     'https://unpkg.com/antd@4.24.13/dist/antd.css',
+    //   ],
+    //   designerResources: [
+    //     // 'https://unpkg.com/@music163/antd@{{version}}/dist/designer.js',
+    //     'http://localhost:9003/designer.js',
+    //     'https://unpkg.com/antd@4.24.13/dist/antd.css',
+    //   ],
+    // },
   },
 };
 

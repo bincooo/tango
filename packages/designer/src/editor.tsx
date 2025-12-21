@@ -3,7 +3,7 @@ import { Box } from 'coral-system';
 import { MultiEditor, MultiEditorProps } from '@music163/tango-ui';
 import { observer, useDesigner, useWorkspace } from '@music163/tango-context';
 
-import { monacoSetting, addTypescriptExtra } from './monaco';
+import { initMonacoLite, addTypescriptExtra } from './monaco';
 import './editor.scss';
 import { MonacoJsxSyntaxHighlight, getWorker } from 'monaco-jsx-syntax-highlight';
 
@@ -42,12 +42,7 @@ export const CodeEditor = observer((props: CodeEditorProps) => {
   useEffect(() => {
     editorRef.current?.refresh(files, activeFile, loc);
 
-    monacoSetting((monaco, editor) => {
-      if ((window as any).__monaco_lite__init__) {
-        return;
-      }
-      (window as any).__monaco_lite__init__ = true;
-
+    initMonacoLite((monaco, editor) => {
       // ✅ 启用 TSX 支持
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         jsx: monaco.languages.typescript.JsxEmit.ReactJSX,

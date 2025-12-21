@@ -26,6 +26,9 @@ import {
 import { mailFiles } from '@/helpers/mail-files';
 import { readFiles, saveFile } from '@/helpers/fetch-files';
 
+// 防抖
+import { debounce } from 'lodash';
+
 // 1. 实例化工作区
 let workspace = new Workspace({
   entry: '/src/index.js',
@@ -34,7 +37,7 @@ let workspace = new Workspace({
 });
 
 // @ts-ignore
-window.__mailWorkspace__ = workspace;
+window.__workspace__ = workspace;
 
 // 3. 沙箱初始化
 const sandboxQuery = new DndQuery({
@@ -48,12 +51,29 @@ createFromIconfontCN({
 
 let inited = false;
 
+const publishFile = (() => {
+  let ready = false;
+  return debounce(() => {
+    if (!inited) {
+      return;
+    }
+
+    if (!ready) {
+      ready = true;
+      return;
+    }
+
+    const file = workspace.getFile(workspace.activeFile);
+    saveFile(file.filename, file.code);
+  }, 1000);
+})();
+
 /**
  * 5. 平台初始化，访问 https://local.netease.com:6006/
  */
 export default function App() {
   const [menuLoading, setMenuLoading] = useState(true);
-  const [menuData, setMenuData] = useState(false);
+  const [menuData, setMenuData] = useState({});
 
   // 2. 引擎初始化
   const [engine, setEngine] = useState(
@@ -81,11 +101,6 @@ export default function App() {
 
     inited = true;
   }
-
-  const publishFile = () => {
-    const file = workspace.getFile(workspace.activeFile);
-    saveFile(file.filename, file.code);
-  };
 
   return (
     <Designer
@@ -125,7 +140,7 @@ export default function App() {
             label="组件"
             icon={<AppstoreAddOutlined />}
             widgetProps={{
-              menuData: menuData as any,
+              menuData,
               loading: menuLoading,
             }}
           />
@@ -145,13 +160,13 @@ export default function App() {
               onMessage={(e: any) => {
                 if (e.type === 'done') {
                   const sandboxWindow: any = sandboxQuery.window;
-                  if (sandboxWindow.TangoMail) {
-                    if (sandboxWindow.TangoMail.menuData) {
-                      setMenuData(sandboxWindow.TangoMail.menuData);
-                      engine.designer.setMenuData(sandboxWindow.TangoMail.menuData);
+                  if (sandboxWindow.TangoCustom) {
+                    if (sandboxWindow.TangoCustom.menuData) {
+                      setMenuData(sandboxWindow.TangoCustom.menuData);
+                      engine.designer.setMenuData(sandboxWindow.TangoCustom.menuData);
                     }
-                    if (sandboxWindow.TangoMail.prototypes) {
-                      workspace.setComponentPrototypes(sandboxWindow.TangoMail.prototypes);
+                    if (sandboxWindow.TangoCustom.prototypes) {
+                      workspace.setComponentPrototypes(sandboxWindow.TangoCustom.prototypes);
                     }
                   }
                   setMenuLoading(false);
