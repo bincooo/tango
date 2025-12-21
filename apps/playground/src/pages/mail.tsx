@@ -160,20 +160,23 @@ export default function App() {
               onMessage={(e: any) => {
                 if (e.type === 'done') {
                   const sandboxWindow: any = sandboxQuery.window;
-                  if (sandboxWindow.TangoCustom) {
-                    if (sandboxWindow.TangoCustom.menuData) {
-                      setMenuData(sandboxWindow.TangoCustom.menuData);
-                      engine.designer.setMenuData(sandboxWindow.TangoCustom.menuData);
+                  const keys = Object.keys(sandboxWindow).filter((x) => x.startsWith('Tango'));
+                  keys.forEach((key) => {
+                    if (sandboxWindow[key].menuData) {
+                      setMenuData(sandboxWindow[key].menuData);
+                      engine.designer.setMenuData(sandboxWindow[key].menuData);
                     }
-                    if (sandboxWindow.TangoCustom.prototypes) {
-                      workspace.setComponentPrototypes(sandboxWindow.TangoCustom.prototypes);
+                    if (sandboxWindow[key].prototypes) {
+                      workspace.setComponentPrototypes(sandboxWindow[key].prototypes);
                     }
-                  }
+                  });
                   setMenuLoading(false);
-                  publishFile();
                 }
               }}
               navigatorExtra={<Button size="small">hello world</Button>}
+              onFileChange={() => {
+                publishFile();
+              }}
             />
           </WorkspaceView>
           <WorkspaceView mode="code">

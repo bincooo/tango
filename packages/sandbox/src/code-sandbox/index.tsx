@@ -200,6 +200,9 @@ export class CodeSandbox extends React.Component<CodeSandboxProps, CodeSandboxSt
         files,
         template: this.props.template,
       });
+      if (this.props.onFileChange) {
+        this.props.onFileChange(files, null);
+      }
     }
   };
 

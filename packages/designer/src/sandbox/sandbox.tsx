@@ -59,6 +59,7 @@ function useSandbox({
   filesFormatter,
   onViewChange,
   onMessage: onMessageProp,
+  onFileChange: onFileChangeProp,
   onLoad: onLoadProp,
   sandboxType,
   startRoute,
@@ -104,6 +105,8 @@ function useSandbox({
   }
 
   const onMessage = (data: any) => onMessageProp && onMessageProp(data, getSandboxConfig());
+  const onFileChange = (data: any, sandpack: any) =>
+    onFileChangeProp && onFileChangeProp(data, sandpack);
   const onLoad = () => onLoadProp && onLoadProp(getSandboxConfig());
 
   // 根据当前 workspace 状态与组件传入的状态是否一致，控制是否需要切换到空白路由
@@ -116,6 +119,7 @@ function useSandbox({
         files,
         eventHandlers: pick(dndHandlers, ['onTango']),
         onMessage,
+        onFileChange,
         onLoad,
         display,
         startRoute: routePath,
@@ -125,6 +129,7 @@ function useSandbox({
         files,
         eventHandlers: dndHandlers as any,
         onMessage,
+        onFileChange,
         onLoad,
         display,
         startRoute: routePath,
@@ -136,11 +141,20 @@ function useSandbox({
 
 const PreviewSandbox = observer(
   (props: SandboxProps, ref: ForwardedRef<CodeSandbox>) => {
-    const { onViewChange, onMessage, startRoute, isPreview = true, injectScript, ...rest } = props;
+    const {
+      onViewChange,
+      onMessage,
+      onFileChange,
+      startRoute,
+      isPreview = true,
+      injectScript,
+      ...rest
+    } = props;
     const { display, ...sandboxProps } = useSandbox({
       isPreview,
       onViewChange,
       onMessage,
+      onFileChange,
       startRoute,
       injectScript,
       sandboxType: 'preview',
@@ -161,7 +175,15 @@ PreviewSandbox.displayName = 'PreviewSandbox';
 
 const DesignSandbox = observer(
   (props: SandboxProps, ref: ForwardedRef<CodeSandbox>) => {
-    const { onViewChange, onMessage, startRoute, isPreview = false, injectScript, ...rest } = props;
+    const {
+      onViewChange,
+      onMessage,
+      onFileChange,
+      startRoute,
+      isPreview = false,
+      injectScript,
+      ...rest
+    } = props;
     const workspace = useWorkspace();
     const { display, ...sandboxProps } = useSandbox({
       isPreview,
@@ -189,6 +211,7 @@ const DesignSandbox = observer(
           workspace.selectSource.select(items);
         }
       },
+      onFileChange,
       startRoute,
       injectScript,
       sandboxType: 'design',
