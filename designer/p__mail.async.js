@@ -624,7 +624,7 @@ export default defineStore({
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 1000;
+    z-index: 1001;
     height: 100%;
     width: 100%;
     box-shadow: var(--tango-shadows-lowRight);
